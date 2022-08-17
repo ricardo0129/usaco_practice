@@ -21,7 +21,7 @@ const int MOD = (int)1e9+7;
 unsigned long long int m;
 bool vist[9];
 int s[9];
-bool round(ull x){
+bool solve(ull x){
     int n = 0;
     while(x){
         s[n++] = x%10;
@@ -31,8 +31,9 @@ bool round(ull x){
     memset(vist,false,sizeof vist);
     int u = 0;
     int got = 0;
-    while(!vist[u]){
+    while(true){
         u = (u+s[u])%n;
+        if(vist[u]) break;
         vist[u] = true;
         got++;
     }
@@ -62,15 +63,17 @@ int main()
             FOR(j,numb.size()){
                 x+=(ull)pow(10,j)*numb[j];
             }
-            if(round(x) && x>m){
+            if(x>ans) continue;
+            if(solve(x) && x>m){
                 ans = min(ans,x);
                 tot++;
             }
 
         }while(next_permutation(numb.begin(),numb.end()));
     }
-    cout<<tot<<endl;
     fout<<ans<<endl;
+    cout<<ans<<endl;
+    cout<<tot<<endl;
     return 0;
 }
 
